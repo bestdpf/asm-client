@@ -1,0 +1,33 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x06\x00s\x00r\x00c)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index=0
+ProjectRootRelative=./
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=file:///home/duan/workplace/asmlib-opencv-read-only/src/build
+Build Type=Debug
+CMake Binary=file:///usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=demo
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Configured from ProjectItem=src,demo,demo
+Project Target=src,demo,demo
+Working Directory=file:///home/duan/workplace/asmlib-opencv-read-only/src/build/demo/
+isExecutable=false
+
+[Project]
+VersionControlSupport=kdevsubversion
