@@ -6,4 +6,5 @@ SET(LIB_SRC_LIST modelfile.cpp asmmodel.cpp shapevec.cpp similaritytrans.cpp afr
 #INCLUDE_DIRECTORIES( ${OPENCV_INCLUDE_DIR} )
 
 ADD_LIBRARY( asm STATIC ${LIB_SRC_LIST} )
+ADD_SUBDIRECTORY(net)
 

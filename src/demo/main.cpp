@@ -84,6 +84,11 @@ void asmOnWebCam(
 
         // Fit to ASM!
         vector < ASMFitResult > fitResult = asmModel.fitAll(img, faces, verboseL);
+	printf("ret size is %d\n",fitResult.size());
+	for (uint i=0; i<fitResult.size(); i++){
+	  vector< Point_<int> > V;
+	  fitResult[i].toPointList(V);
+	}
         asmModel.showResult(img, fitResult);
     }
 }
