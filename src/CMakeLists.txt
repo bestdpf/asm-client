@@ -1,6 +1,11 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 PROJECT( asmlib-opencv-proj )
 FIND_PACKAGE( OpenCV REQUIRED )
+SET(CMAKE_CXXFLAGS_DEBUG " -O0 -g -ggdb")
+SET(CMAKE_CXXFLAGS_Release " -O2")
+SET(CMAKE_BUILD_TYPE "Debug")
+
+
 SET(LIB_SRC_LIST modelfile.cpp asmmodel.cpp shapevec.cpp similaritytrans.cpp afreader.cpp modelimage.cpp  shapemodel.cpp shapeinfo.cpp)
 
 #INCLUDE_DIRECTORIES( ${OPENCV_INCLUDE_DIR} )
