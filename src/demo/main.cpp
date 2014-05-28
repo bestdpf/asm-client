@@ -88,6 +88,7 @@ void asmOnWebCam(
 	for (uint i=0; i<fitResult.size(); i++){
 	  vector< Point_<int> > V;
 	  fitResult[i].toPointList(V);
+        printf("plist size %d\n",V.size());
 	}
         asmModel.showResult(img, fitResult);
     }
