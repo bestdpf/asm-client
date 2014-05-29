@@ -74,8 +74,11 @@ void asmOnWebCam(
         cerr << "Failed to open your webcam." << endl;
         exit(2);
     }
+    printf("build xconfig ...\n");
     XConfig xcfg(xconfigPath);
+    printf("before build socket\n");
     TCPSocket *sock= new TCPSocket("127.0.0.1",50011);
+    printf("after build socket\n");
     while (cvWaitKey(5) == -1) {
         capture >> imgT;
         cv::flip(imgT, img, 1);

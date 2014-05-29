@@ -1,30 +1,36 @@
 #include"xconfig.h"
 #include<iostream>
+#include<fstream>
+#include<sstream>
+
 using namespace std;
 
 namespace StatModel {
 XConfig::XConfig(string& filename)
 {
+    ifstream inp(filename.c_str()); 
   int i;
   for(i=0;i<X_NUM;i++){
+    printf("read %d config\n",i);
     int c;
-    cin>>c;
+    inp>>c;
+    cnt[i]=c;
     if(c==0)mask[i]=false;
     else{
       mask[i]=true;
-      cnt[i]=c;
+      //cnt[i]=c;
       int j,point;
       p[i].clear();
       for(j=0;j<c;j++){
-	cin>>point;
+	inp>>point;
 	p[i].push_back(point);
       }
       char a;
-      cin>>a;
+      inp>>a;
       if(a=='x')axis[i]=x;
       else axis[i]=y;
       string u;
-      cin>>u;
+      inp>>u;
       if(u=="es")unit[i]=ES;
       else if(u=="irisd")unit[i]=IRISD;
       else if(u=="ens")unit[i]=ENS;
@@ -33,7 +39,7 @@ XConfig::XConfig(string& filename)
       else if(u=="au")unit[i]=AU;
       else cerr<<"illeagl unit"<<endl;
       string dir;
-      cin>>dir;
+      inp>>dir;
       if(dir=="up")mdir[i]=UP;
       else if(dir=="down")mdir[i]=DOWN;
       else if(dir=="left")mdir[i]=LEFT;
