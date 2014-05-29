@@ -123,7 +123,7 @@ bool XConfig::process(vector< Point_<int> >& V)
   }
   retStr.clear();
   for(i=0;i<X_NUM;i++){
-    if(mask[i]){
+    if(retMask[i]){
       avgx[i]=(initCnt-1)*avgx[i]+vec[i].x;
       avgx[i]/=initCnt;
       avgy[i]=(initCnt-1)*avgy[i]+vec[i].y;
@@ -147,10 +147,10 @@ bool XConfig::process(vector< Point_<int> >& V)
     int i;
     for(i=0;i<6;i++)unit_value[i]/=1024;
     for(i=0;i<X_NUM;i++){
-      retStr<<sep<<(mask[i])?"1":"0";
+      retStr<<sep<<(retMask[i])?"1":"0";
     }
     
-    for(i=0;i<X_NUM;i++)if(mask[i]){
+    for(i=0;i<X_NUM;i++)if(retMask[i]){
       int val;
       if(mdir[i]==DOWN||mdir[i]==RIGHT){//opencv's positive direction
 	val=((axis[i]==x)?vec[i].x:vec[i].y-(axis[i]==x)?avgx[i]:avgy[i]);
