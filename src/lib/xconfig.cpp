@@ -159,6 +159,8 @@ bool XConfig::process(vector< Point_<int> >& V)
 	val=(-((axis[i]==x)?vec[i].x:vec[i].y-(axis[i]==x)?avgx[i]:avgy[i]));
       }
       val/=unit_value[unit[i]];
+      if(val<-400)val=-400;
+      if(val>400)val=400;
       retStr<<sep<<val;
     }
     return true;
