@@ -1,53 +1,48 @@
 0
 0
-1 57 y mns
-1 64 y mns
-1 61 y mns
+1 57 y mns down
+1 64 y mns down
+1 61 y mns up
 
 0
 0
-1 63 y mns
-1 65 y mns
-1 62 y mns
+1 63 y mns down
+1 65 y mns down
+1 62 y mns up
 
-1 60 y mns
+1 60 y mns up
 0
 0
 0
-1 57 x mw
-
-0
-0
-0
-2 19 20 y irisd
-2 25 26 y irisd
-
-1 35 y irisd
-1 30 y irisd
-1 36 x au
-1 31 y au
-1 36 x au
-
-1 31y au
-0
-0
-0
-0
-
-1 18 y ens
-1 24 y ens
-1 17 y ens
-1 23 y ens
-1 16 y ens
-1 22 y ens
-1 45 x es
-1 37 x es
-0
-0
+1 57 x mw right
 
 0
 0
 0
+2 19 20 y irisd down
+2 25 26 y irisd down
+
+1 35 y irisd up
+1 30 y irisd up
+1 36 x au left
+1 31 y au left
+1 36 x au down
+
+1 31 y au down
+0
+0
+0
+0
+
+1 18 y ens up
+1 24 y ens up
+1 17 y ens up
+1 23 y ens up
+1 16 y ens up
+
+1 22 y ens up
+1 45 x es right
+1 37 x es left
 0
 0
 
@@ -57,25 +52,31 @@
 0
 0
 
-1 5 y mns
-1 57 y mns
-1 54 x mw
-1 48 x mw
-1 53 y mns
-
-1 49 y mns
-2 55 56 y mns
-2 58 59 y mns
-1 54 y mns
-1 48 y mns
-
-1 43 x ens
-1 39 x ens
-1 67 y ens
 0
-1 14 y ens
+0
+0
+0
+0
 
-1 0 y ens
-1 14 x ens
-1 0 x ens
+1 5 y mns down
+1 57 y mns up
+1 54 x mw left
+1 48 x mw right
+1 53 y mns down
+
+1 49 y mns down
+2 55 56 y mns up
+2 58 59 y mns up
+1 54 y mns up
+1 48 y mns up
+
+1 43 x ens left
+1 39 x ens right
+1 67 y ens up
+0
+1 14 y ens up
+
+1 0 y ens up
+1 14 x ens left
+1 0 x ens right
 

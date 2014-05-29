@@ -132,6 +132,7 @@ class ModelFile
 
         //ModelFile(){  }
         ~ModelFile(){ if (fs) fs.close(); }
+
     private:
         fstream fs;
 };

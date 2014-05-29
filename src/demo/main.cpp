@@ -10,11 +10,15 @@
 #include <cstdio>
 #include <string>
 #include "highgui.h"
+#include <net/Socket.h>
+#include <xconfig.h>
+
 using std::string;
 using cv::imshow;
 using std::cerr;
 using std::endl;
 
+using namespace net;
 using namespace StatModel;
 
 //! Build an ASM model.
@@ -60,7 +64,9 @@ void searchAndFit(
 void asmOnWebCam(
         ASMModel & asmModel,
         cv::CascadeClassifier &objCascadeClassfifier,
-        int verboseL) {
+        int verboseL,
+	string& xconfigPath
+		) {
     Mat img, imgT;
     cv::VideoCapture capture;
     capture.open(0);
@@ -68,10 +74,11 @@ void asmOnWebCam(
         cerr << "Failed to open your webcam." << endl;
         exit(2);
     }
+    XConfig xcfg(xconfigPath);
+    TCPSocket *sock= new TCPSocket("127.0.0.1",50011);
     while (cvWaitKey(5) == -1) {
         capture >> imgT;
         cv::flip(imgT, img, 1);
-
         vector< cv::Rect > faces;
         // Do face detection first.
         // Note: ONLY the largest face is processed.
@@ -89,9 +96,15 @@ void asmOnWebCam(
 	  vector< Point_<int> > V;
 	  fitResult[i].toPointList(V);
         printf("plist size %d\n",V.size());
+	if(xcfg.process(V)){
+	  string str=xcfg.getRetStr();
+	  sock->send(str.c_str(),str.length());
+	}
 	}
         asmModel.showResult(img, fitResult);
     }
+    delete sock;
+    sock=NULL;
 }
 
 void showHelp()
@@ -115,6 +128,7 @@ void showHelp()
         << "   -C <detector_xml> : Face/Object detector XML (OpenCV)." << endl
         << "   -p <image>        : Path to an image" << endl
         << "   -pc               : Run on your webcam!" << endl
+        << "   -x <x config file>               : specify your x config path dpf" << endl
         << endl
         << "For details and examples, please check: " << endl
         << "  http://code.google.com/p/asmlib-opencv/wiki/RunningDemo" << endl
@@ -124,12 +138,12 @@ void showHelp()
 int main(int argc, char *argv[])
 {
     string modelFile, modelType, action;
-    string ptsDefFile, ptsListFile, picPath;
+    string ptsDefFile, ptsListFile, picPath, xconfigPath;
     string faceCascadePath = "haarcascade_frontalface_alt.xml";
     int verboseL = 0;
     int ch;
     opterr = 0;
-    while ((ch = getopt(argc, argv, "cV:p:C:m:t:d:l:a:vbf?")) != EOF) {
+    while ((ch = getopt(argc, argv, "cV:p:C:x:m:t:d:l:a:vbf?")) != EOF) {
         switch (ch) {
           // General options:
           case 'm':
@@ -175,6 +189,9 @@ int main(int argc, char *argv[])
               // Path for the picture to fit
               picPath = optarg;
               break;
+	  case 'x':
+	      xconfigPath= optarg;
+	      break;
         }
     }
 
@@ -187,6 +204,12 @@ int main(int argc, char *argv[])
     if (modelFile == "") {
         showHelp();
         cerr << "!!! You have to specify a model file!" << endl << endl;
+        exit(1);
+    }
+    
+    if (xconfigPath == "") {
+        showHelp();
+        cerr << "!!! You have to specify a x config path!" << endl << endl;
         exit(1);
     }
 
@@ -226,7 +249,7 @@ int main(int argc, char *argv[])
                 exit(1);
             }
             if (picPath == "c") {
-                asmOnWebCam(asmModel, faceCascade, verboseL);
+                asmOnWebCam(asmModel, faceCascade, verboseL, xconfigPath);
             } else {
                 searchAndFit(asmModel, faceCascade, picPath, verboseL);
             }
