@@ -58,6 +58,8 @@ public:
 
     //! Get the result in landmark point list form.
     void toPointList(vector< Point_<int> > &pV) const;
+    void toMeanPointList(vector< Point_<int> > &pV) const;
+    void toDiffPointList(vector< Point_<int> > &pV) const;
 };
 
 //! Active Shape Model
@@ -85,6 +87,7 @@ private:
 
     PCA pcaPyr[3];
     double sigma2Pyr[3];
+    
 
 public:
     //! Empty ASM model.
@@ -137,6 +140,9 @@ public:
     */
     void findParamForShape(const ShapeVec &Y, ASMFitResult & fitResult);
 
+    ShapeVec& getMeanShapeModel(){
+      return ShapeModel::meanShape;
+    }
 private:
     //! Use Bayesian Tangent Shape Model to find best parameter and transformation for the given shape
     /*!

@@ -39,6 +39,7 @@ namespace StatModel{
     //vector<int>& getValue();
     const string getRetStr();
     bool process(vector< Point_<int> >& V);
+    bool processTwo(vector< Point_<int> >& V, vector<Point_<int> >&V2);
   protected:
     vector<Point_<int> > chgOrder(vector<Point_<int> >& V);
   private:

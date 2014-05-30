@@ -96,13 +96,15 @@ void asmOnWebCam(
         vector < ASMFitResult > fitResult = asmModel.fitAll(img, faces, verboseL);
 	printf("ret size is %d\n",fitResult.size());
 	for (uint i=0; i<fitResult.size(); i++){
-	  vector< Point_<int> > V;
+	  vector< Point_<int> > V,V2;
 	  fitResult[i].toPointList(V);
+	  fitResult[i].toMeanPointList(V2);
         printf("plist size %d\n",V.size());
-	if(xcfg.process(V)){
+	if(xcfg.processTwo(V,V2)){
 	  string str=xcfg.getRetStr();
 	  sock->send(str.c_str(),str.length());
 	}
+	  //sleep(1);
 	}
         asmModel.showResult(img, fitResult);
     }

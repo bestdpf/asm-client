@@ -458,4 +458,23 @@ void ASMFitResult::toPointList(vector< Point_<int> > &pV) const {
     sv.restoreToPointList(pV, transformation);
 }
 
+void ASMFitResult::toMeanPointList(vector< Point_<int> > &pV) const {
+    //ShapeVec sv=asmModel->meanShape;
+    //asmModel->projectParamToShape(asmModel->meanG, sv);
+    asmModel->getMeanShapeModel().restoreToPointList(pV, transformation);
+}
+
+void ASMFitResult::toDiffPointList(vector< Point_<int> > &pV) const {
+    ShapeVec sv;
+    asmModel->projectParamToShape(params, sv);
+    sv.restoreToPointList(pV, transformation);
+    vector<Point_<int> > pV2;
+    toMeanPointList(pV2);
+    int i,len=pV.size();
+    for(i=0;i<len;i++){
+      pV[i].x-=pV2[i].x;
+      pV[i].y-=pV2[i].y;
+    }
+}
+
 } // Namespace

@@ -121,7 +121,7 @@ bool XConfig::process(vector< Point_<int> >& V)
     retMask[i]=mask[i];
     if(vec[i].x==0&&vec[i].y==0)mask[i]=false;
   }
-  retStr.clear();
+  retStr.str("");
   for(i=0;i<X_NUM;i++){
     if(retMask[i]){
       avgx[i]=(initCnt-1)*avgx[i]+vec[i].x;
@@ -159,12 +159,67 @@ bool XConfig::process(vector< Point_<int> >& V)
 	val=(-((axis[i]==x)?vec[i].x:vec[i].y-(axis[i]==x)?avgx[i]:avgy[i]));
       }
       val/=unit_value[unit[i]];
-      if(val<-400)val=-400;
-      if(val>400)val=400;
+      //if(val<-400)val=-400;
+      //if(val>400)val=400;
       retStr<<sep<<val;
     }
+    //printf("dump ret size %d\nstr %s\n",retStr.str().length(),retStr.str().c_str());
     return true;
   }
 }
+
+bool XConfig::processTwo(vector< Point_<int> >& V, vector<Point_<int> >&V2)
+{
+  if(V.size()!=INPUT_NUM){
+    cerr<<"you should use muct76"<<endl;
+    return false;
+  }
+  vector<Point_<int> > vec=chgOrder(V);
+  vector<Point_<int> > vec2=chgOrder(V2);
+  initCnt++;
+  int i;
+  for(i=0;i<X_NUM;i++){
+    retMask[i]=mask[i];
+    if(vec[i].x==0&&vec[i].y==0)mask[i]=false;
+  }
+  retStr.str("");
+  /*
+  for(i=0;i<X_NUM;i++){
+    if(retMask[i]){
+      valuex[i]=0.9*oldValuex[i]+0.1*vec[i].x;
+      valuey[i]=0.9*oldValuey[i]+0.1*vec[i].y;
+    }
+  }
+  */
+    unit_value[IRISD]=/*V2[35].y-V2[33].y;//*/((vec2[21-1].y-vec2[19-1].y)+(vec2[22-1].y-vec2[20-1].y))/2;//irisd
+    unit_value[ES]=vec2[36-1].x-vec2[31-1].x;//es
+    unit_value[ENS]=V2[41].y-vec2[36-1].y;//ens
+    unit_value[MNS]=vec2[4-1].y-V2[41].y;//mns
+    unit_value[MW]=vec2[59-1].x -vec2[60-1].x;//mw
+    unit_value[AU]=1e-5;//au
+    //int i;
+    for(i=0;i<6;i++)unit_value[i]/=1;
+    for(i=0;i<X_NUM;i++){
+      retStr<<sep<<(retMask[i])?"1":"0";
+    }
+    
+    for(i=0;i<X_NUM;i++)if(retMask[i]){
+      int val;
+      if(mdir[i]==DOWN||mdir[i]==RIGHT){//opencv's positive direction
+	val=((axis[i]==x)?vec[i].x:vec[i].y-(axis[i]==x)?vec2[i].x:vec2[i].y);
+      }
+      else{
+	val=(-((axis[i]==x)?vec[i].x:vec[i].y-(axis[i]==x)?vec2[i].x:vec2[i].y));
+      }
+      val/=unit_value[unit[i]];
+      //if(val<-400)val=-400;
+      //if(val>400)val=400;
+     // while(abs(val)>400)val/=10;
+      retStr<<sep<<val;//val/1024;
+    }
+    printf("dump ret size %d\nstr %s\n",retStr.str().length(),retStr.str().c_str());
+    return true;
+}
+
 
 }//end of StatModel namespace
