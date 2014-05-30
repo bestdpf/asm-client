@@ -196,9 +196,9 @@ bool XConfig::processTwo(vector< Point_<int> >& V, vector<Point_<int> >&V2)
     unit_value[ENS]=V2[41].y-vec2[36-1].y;//ens
     unit_value[MNS]=vec2[4-1].y-V2[41].y;//mns
     unit_value[MW]=vec2[59-1].x -vec2[60-1].x;//mw
-    unit_value[AU]=1e-5;//au
+    unit_value[AU]=1e-5*1024;//au
     //int i;
-    for(i=0;i<6;i++)unit_value[i]/=1;
+    for(i=0;i<6;i++)unit_value[i]/=1024;
     for(i=0;i<X_NUM;i++){
       retStr<<sep<<(retMask[i])?"1":"0";
     }
@@ -214,7 +214,7 @@ bool XConfig::processTwo(vector< Point_<int> >& V, vector<Point_<int> >&V2)
       val/=unit_value[unit[i]];
       //if(val<-400)val=-400;
       //if(val>400)val=400;
-     // while(abs(val)>400)val/=10;
+      while(abs(val)>128)val/=8;
       retStr<<sep<<val;//val/1024;
     }
     printf("dump ret size %d\nstr %s\n",retStr.str().length(),retStr.str().c_str());
