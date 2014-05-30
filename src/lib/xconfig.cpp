@@ -214,8 +214,8 @@ bool XConfig::processTwo(vector< Point_<int> >& V, vector<Point_<int> >&V2)
       val/=unit_value[unit[i]];
       //if(val<-400)val=-400;
       //if(val>400)val=400;
-      while(abs(val)>128)val/=8;
-      retStr<<sep<<val;//val/1024;
+      //while(abs(val)>600)val/=8;
+      retStr<<sep<<val/50;//val/1024;
     }
     printf("dump ret size %d\nstr %s\n",retStr.str().length(),retStr.str().c_str());
     return true;
